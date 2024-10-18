@@ -5,9 +5,21 @@ public class ZooManagement {
         int nbrCages, animalAge, nbAnimals,choix;
         boolean animalMammal;
         String zooName, animalFamily, animalName, city, animalName2, animalName3;
+        Aquatic aquatic=new Aquatic("fish","dolphin",3,true,"ocean");
+        Terrestrial terrestrial=new Terrestrial("dog","wolf",5,true,4);
+        Dolphin dolphin=new Dolphin("big fish","dolphin",6,true,"pacific ocean",4);
+        Penguin penguin=new Penguin("birds","penquin",10,true,"north pole",40);
 
+        System.out.println(aquatic.toString());
+        System.out.println(terrestrial.toString());
+        System.out.println(dolphin.toString());
+        System.out.println(penguin.toString());
 
-        System.out.print("Entrez les informations du zoo: \n");
+        aquatic.swim();
+        dolphin.swim();
+        penguin.swim();
+
+        /*System.out.print("Entrez les informations du zoo: \n");
         do {
             Scanner reader5 = new Scanner(System.in);
             System.out.print("Entrez le nom du zoo : \n");
@@ -79,7 +91,7 @@ public class ZooManagement {
 
 
             }
-        }while(choix != 0);
+        }while(choix != 0);*/
 
     }
 
@@ -122,6 +134,12 @@ class Animal {
         this.isMammal = isMammal;
     }
 
+    public Animal(){
+        this.family = "";
+        this.name="";
+        this.age = 0;
+        this.isMammal = false;
+    }
 
     public Animal(String family, String name, int age, boolean isMammal) {
         this.setFamily(family) ;
@@ -138,6 +156,76 @@ class Animal {
     @Override
     public String toString() {
         return "Animal Name: " + name + ", Family: " + family + ", Age: " + age + ", Mammal: " + isMammal;
+    }
+}
+
+class Aquatic extends Animal {
+    protected String habitat;
+    public Aquatic() {
+        super();
+        this.habitat = "";
+    }
+    public Aquatic(String family, String name, int age, boolean isMammal, String habitat) {
+        super(family, name, age, isMammal);
+        this.habitat = habitat;
+    }
+    @Override
+    public String toString() {
+        return super.toString() +" , Habitat: " + habitat;
+    }
+    public void swim() {
+        System.out.println("This aquatic animal is swimming");
+    }
+}
+
+class Terrestrial extends Animal {
+    protected int nbrLegs;
+    public Terrestrial() {
+        super();
+        this.nbrLegs = 0;
+    }
+    public Terrestrial(String family, String name, int age, boolean isMammal, int nbrLegs) {
+        super(family, name, age, isMammal);
+        this.nbrLegs = nbrLegs;
+    }
+    @Override
+    public String toString() {
+        return super.toString() +" , Number of legs: " + nbrLegs;
+    }
+}
+
+class Dolphin extends Aquatic {
+    protected float swimmingSpeed;
+    public Dolphin() {
+        super();
+        this.swimmingSpeed = 0;
+    }
+    public Dolphin(String family, String name, int age, boolean isMammal, String habitat, float swimmingSpeed) {
+        super(family, name, age, isMammal, habitat);
+        this.swimmingSpeed = swimmingSpeed;
+    }
+    @Override
+    public String toString() {
+        return super.toString() +" , Swimming speed: " + swimmingSpeed;
+    }
+    public void swim() {
+        System.out.println("This dolphin is swimming");
+    }
+}
+
+class Penguin extends Aquatic {
+    protected float swimmingDepth;
+    public Penguin() {
+        super();
+        this.swimmingDepth = 0;
+    }
+    public Penguin(String family, String name, int age, boolean isMammal,String habitat, float swimmingDepth) {
+        super(family, name, age, isMammal, habitat);
+        this.swimmingDepth = swimmingDepth;
+    }
+    @Override
+    public String toString() {
+        return super.toString() +" , Swimming depth: " + swimmingDepth;
     }
 }
 
