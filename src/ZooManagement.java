@@ -5,6 +5,12 @@ public class ZooManagement {
         int nbrCages, animalAge, nbAnimals,choix;
         boolean animalMammal;
         String zooName, animalFamily, animalName, city, animalName2, animalName3;
+
+        Aquatic a=new Aquatic();
+        Terrestrial t=new Terrestrial();
+        Dolphin d=new Dolphin();
+        Penguin p=new Penguin();
+
         Aquatic aquatic=new Aquatic("fish","dolphin",3,true,"ocean");
         Terrestrial terrestrial=new Terrestrial("dog","wolf",5,true,4);
         Dolphin dolphin=new Dolphin("big fish","dolphin",6,true,"pacific ocean",4);
