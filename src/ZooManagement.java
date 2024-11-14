@@ -6,7 +6,24 @@ public class ZooManagement {
         boolean animalMammal;
         String zooName, animalFamily, animalName, city, animalName2, animalName3;
 
-        Zoo myZoo = new Zoo("belvedere","tunis",20);
+        Zoo myZoo = new Zoo("belvedere","tunis",3);
+        Animal a1=new Animal("cat","lion",4,true);
+        Animal a2=new Animal("dog","wolf",6,true);
+        Animal a3=new Animal("fish","jellyfish",1,false);
+        Animal a4=new Animal("dog","dogg",-2,false);
+
+        try {
+            myZoo.addAnimal(a1);
+            System.out.println("Nombre d'animaux : " + myZoo.nbAnimals());
+            myZoo.addAnimal(a2);
+            System.out.println("Nombre d'animaux : " + myZoo.nbAnimals());
+            myZoo.addAnimal(a3);
+            System.out.println("Nombre d'animaux : " + myZoo.nbAnimals());
+            myZoo.addAnimal(a4); // Ce dernier ajout doit déclencher ZooFullException
+
+        } catch (ZooFullException | InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
 
         Terrestrial t=new Terrestrial();
         Dolphin d=new Dolphin();

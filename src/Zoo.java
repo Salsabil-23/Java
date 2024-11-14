@@ -1,5 +1,5 @@
 public class Zoo {
-    Animal [] animals = new Animal[25];
+    Animal [] animals;
     Aquatic [] aquaticAnimals = new Aquatic[10];
     private String name;
     private String city;
@@ -45,6 +45,7 @@ public class Zoo {
         this.setName(name);
         this.setCity(city);
         this.setNbrCages(nbrCages);
+        this.animals = new Animal[nbrCages];
     }
     public void displayZoo() {
         System.out.println("Nom du zoo: " + this.getName() + "\n");
@@ -60,7 +61,7 @@ public class Zoo {
         }
         System.out.println("fin du tableau. \n");
     }
-    boolean addAnimal(Animal animal) {
+    /*boolean addAnimal(Animal animal) {
         boolean test=false;
         int i=0;
         int j = this.searchAnimal(animal);
@@ -76,8 +77,33 @@ public class Zoo {
             }
         }
         return test;
+    }*/
+    public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
+        int j = this.searchAnimal(animal);
+        if (animal.getAge() < 0) {
+            throw new InvalidAgeException("L'âge de l'animal ne peut pas être négatif : " + animal.getAge());
+        }
+
+        if (j != -1) {
+            System.out.println("L'animal est déjà présent dans le zoo.");
+            return;
+        }
+
+        if (this.isZooFull()) {
+            throw new ZooFullException("Le zoo est plein ! Impossible d'ajouter un nouvel animal.");
+        }
+
+        for (int i = 0; i < this.animals.length; i++) {
+            if (this.animals[i] == null) {
+                this.animals[i] = animal;
+                System.out.println("Ajout avec succès !");
+                break;
+            }
+        }
     }
-    int searchAnimal(Animal animal) {
+
+
+    public int searchAnimal(Animal animal) {
         for (int i = 0; i < this.animals.length; i++) {
             if (this.animals[i] != null && this.animals[i].getName().equals(animal.getName())) {
                 System.out.print("L'animal cherché est à la position: \n");
@@ -87,7 +113,7 @@ public class Zoo {
         System.out.print("Animal introuvable! \n");
         return -1;
     }
-    boolean removeAnimal(Animal animal) {
+    public boolean removeAnimal(Animal animal) {
         int indexToRemove = this.searchAnimal(animal);
         if (indexToRemove != -1) {
             for (int i = indexToRemove; i < this.animals.length - 1; i++) {
@@ -101,20 +127,16 @@ public class Zoo {
         return false;
     }
     public boolean isZooFull() {
-        int nbAnimals = this.nbAnimals();
-        if (nbAnimals == this.nbrCages) {
-            return true;
-        }
-        return false;
+        return nbAnimals()==nbrCages;
     }
     public int nbAnimals() {
-        int nbAnimals = 0;
-        for (int i = 0; i < this.animals.length; i++) {
-            if (this.animals[i] != null) {
-                nbAnimals++;
+        int count = 0;
+        for (Animal animal : animals) {
+            if (animal != null) {
+                count++;
             }
         }
-        return nbAnimals;
+        return count;
     }
     public Zoo comparerZoo(Zoo z1, Zoo z2) {
         int i = z1.nbAnimals();
